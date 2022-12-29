@@ -1,5 +1,10 @@
+import { Card } from "../Card";
+
 export const AFazer = () => {
     return (
-        <h2>A Fazer</h2>
+        <Card
+        titulo="Fazer"
+        cor="#E000FF"
+        />
     )
 }

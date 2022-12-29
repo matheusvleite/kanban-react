@@ -1,5 +1,10 @@
+import { Card } from "../Card"
+
 export const Feito = () => {
     return (
-        <h2>Feito</h2>
+        <Card
+            titulo="Feito"
+            cor="#00FF97"
+        />
     )
 }
