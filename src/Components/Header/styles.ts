@@ -9,7 +9,13 @@ export const HeaderContainer = styled.header`
 export const HeaderContent = styled.div`
     display: flex;
     align-items: center;
-    gap: 1rem;
+    justify-content: space-between;
+`
+
+export const HeaderLogo = styled.div`
+    display: flex;
+    align-items: center;
+    gap: .5rem;
 `
 
 export const Title = styled.h1`
