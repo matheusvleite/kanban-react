@@ -9,8 +9,8 @@ export const DataAtual = () => {
 
     useEffect(() => {
         setTimeout(() => {
-            setHoraAtualizada(HoraAtual());
-            setDataAtualizada(Intl.DateTimeFormat('pt-br').format(dataAtual));
+            setHoraAtualizada(HoraAtual);
+            setDataAtualizada(Intl.DateTimeFormat('pt-br', { dateStyle: 'long'}).format(dataAtual));
         }, 1000)
     })
 
