@@ -1,6 +1,6 @@
 import Modal from "@mui/material/Modal";
 import { ITarefas } from "../../interfaces/tarefas";
-import { ModalContent } from "./styles";
+import { Button, ModalContent, ModalInput } from "./styles";
 
 interface Props {
     handleClose: () => void
@@ -9,6 +9,7 @@ interface Props {
     tarefa: string
     setTarefas: React.Dispatch<React.SetStateAction<ITarefas[]>>
     tarefas: ITarefas[]
+    corBotão: string
 }
 
 export const ModalTarefa = ({
@@ -17,7 +18,9 @@ export const ModalTarefa = ({
     setTarefa,
     tarefa,
     setTarefas,
-    tarefas }: Props) => {
+    tarefas,
+    corBotão
+}: Props) => {
 
     const formataData = (data: Date) => {
         return String(Intl.DateTimeFormat('pt-br').format(data))
@@ -38,14 +41,16 @@ export const ModalTarefa = ({
         >
             <ModalContent>
                 <form onSubmit={handleSubmit}>
-                    <input
+                    <ModalInput
                         type="text"
                         maxLength={25}
                         name="Tarefa"
                         id="tarefa"
                         onChange={e => setTarefa(e.target.value)}
+                        required
+                        placeholder="Digite a tarefa"
                     />
-                    <button>Adicionar</button>
+                    <Button corBotão={corBotão}>Adicionar</Button>
                 </form>
             </ModalContent>
         </Modal>

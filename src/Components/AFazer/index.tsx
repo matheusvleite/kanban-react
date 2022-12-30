@@ -33,6 +33,7 @@ export const AFazer = () => {
                 tarefa={tarefa}
                 setTarefas={setTarefas}
                 tarefas={tarefas}
+                corBotão="#E000FF"
             />
         </>
     )

@@ -33,6 +33,7 @@ export const Fazendo = () => {
                 tarefa={tarefa}
                 setTarefas={setTarefas}
                 tarefas={tarefas}
+                corBotão="#06BFF0"
             />
         </>
     )
