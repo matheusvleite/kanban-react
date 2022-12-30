@@ -5,9 +5,10 @@ import { CgAdd } from "react-icons/cg"
 interface Props {
     titulo: string
     cor: string
+    handleOpen: () => void
 }
 
-export const Card = ({ titulo, cor }: Props) => {
+export const Card = ({ titulo, cor, handleOpen }: Props) => {
     return (
         <CardContainer cor={cor}>
             <TitleCard>
@@ -34,7 +35,7 @@ export const Card = ({ titulo, cor }: Props) => {
                 </ItemCard>
             </TarefasCard>
             <ContentAdd>
-                <ButtonAdd>
+                <ButtonAdd onClick={handleOpen}>
                     Adicionar a {titulo}
                 </ButtonAdd>
                 <CgAdd />
