@@ -1,4 +1,5 @@
 import Modal from "@mui/material/Modal";
+import { useId } from "react";
 import { ITarefas } from "../../interfaces/tarefas";
 import { Button, ModalContent, ModalInput } from "./styles";
 
@@ -21,7 +22,6 @@ export const ModalTarefa = ({
     tarefas,
     corBotão
 }: Props) => {
-
     const formataData = (data: Date) => {
         return String(Intl.DateTimeFormat('pt-br').format(data))
     }
@@ -29,11 +29,13 @@ export const ModalTarefa = ({
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
         setTarefas([
-            { tarefa, data: formataData(new Date()) },
+            { tarefa, data: formataData(new Date()), id: `${tarefa}-${Date.now()}` },
             ...tarefas
         ])
+
         handleClose()
     }
+
     return (
         <Modal
             open={open}

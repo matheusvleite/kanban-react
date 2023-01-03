@@ -13,11 +13,11 @@ interface Props {
 
 export const Card = ({ titulo, cor, handleOpen, tarefas, setTarefas }: Props) => {
 
-    const handleRemoveTarefa = (index: number) => {
+    const handleRemoveTarefa = (id: string) => {
         const remover = window.confirm('Deseja excluir tarefa?')
 
         if (remover) {
-            setTarefas((tarefa) => tarefa.filter((_, indexExistente) => indexExistente !== index))
+            setTarefas((tarefa) => tarefa.filter(item => item.id !== id))
         }
     }
 
@@ -40,7 +40,7 @@ export const Card = ({ titulo, cor, handleOpen, tarefas, setTarefas }: Props) =>
                         </div>
                         <Icones>
                             <FaTrashAlt
-                                onClick={() => handleRemoveTarefa(index)}
+                                onClick={() => handleRemoveTarefa(item.id)}
                                 title="Apagar" />
                             <FaEdit
                                 onClick={() => alert('')}
