@@ -9,6 +9,7 @@ export const AFazer = () => {
     const [open, setOpen] = useState(false);
     const [tarefa, setTarefa] = useState('');
     const [tarefas, setTarefas] = useState<ITarefas[]>(getTarefa);
+    const [tarefaEditadaId, setTarefaEditadaId] = useState('');
 
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
@@ -25,6 +26,8 @@ export const AFazer = () => {
                 handleOpen={handleOpen}
                 tarefas={tarefas}
                 setTarefas={setTarefas}
+                setTarefa={setTarefa}
+                setTarefaEditadaId={setTarefaEditadaId}
             />
             <ModalTarefa
                 handleClose={handleClose}
@@ -34,6 +37,8 @@ export const AFazer = () => {
                 setTarefas={setTarefas}
                 tarefas={tarefas}
                 corBotão="#E000FF"
+                tarefaEditadaId={tarefaEditadaId}
+                setTarefaEditadaId={setTarefaEditadaId}
             />
         </>
     )

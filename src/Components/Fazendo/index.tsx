@@ -9,6 +9,7 @@ export const Fazendo = () => {
     const [open, setOpen] = useState(false);
     const [tarefa, setTarefa] = useState('');
     const [tarefas, setTarefas] = useState<ITarefas[]>(getTarefa);
+    const [tarefaEditadaId, setTarefaEditadaId] = useState('');
 
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
@@ -25,6 +26,8 @@ export const Fazendo = () => {
                 handleOpen={handleOpen}
                 tarefas={tarefas}
                 setTarefas={setTarefas}
+                setTarefa={setTarefa}
+                setTarefaEditadaId={setTarefaEditadaId}
             />
             <ModalTarefa
                 handleClose={handleClose}
@@ -34,6 +37,8 @@ export const Fazendo = () => {
                 setTarefas={setTarefas}
                 tarefas={tarefas}
                 corBotão="#06BFF0"
+                tarefaEditadaId={tarefaEditadaId}
+                setTarefaEditadaId={setTarefaEditadaId}
             />
         </>
     )

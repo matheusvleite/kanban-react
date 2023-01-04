@@ -9,9 +9,11 @@ interface Props {
     handleOpen: () => void
     tarefas: ITarefas[]
     setTarefas: React.Dispatch<React.SetStateAction<ITarefas[]>>
+    setTarefa: React.Dispatch<React.SetStateAction<string>>
+    setTarefaEditadaId: React.Dispatch<React.SetStateAction<string>>
 }
 
-export const Card = ({ titulo, cor, handleOpen, tarefas, setTarefas }: Props) => {
+export const Card = ({ titulo, cor, handleOpen, tarefas, setTarefas, setTarefa, setTarefaEditadaId }: Props) => {
 
     const handleRemoveTarefa = (id: string) => {
         const remover = window.confirm('Deseja excluir tarefa?')
@@ -21,6 +23,14 @@ export const Card = ({ titulo, cor, handleOpen, tarefas, setTarefas }: Props) =>
         }
     }
 
+    const handleEditarTarefa = (id: string) => {
+        const tarefaAEditar = tarefas.find(item => item.id === id)
+        if (tarefaAEditar) {
+            setTarefa(tarefaAEditar.tarefa)
+            setTarefaEditadaId(id)
+            handleOpen()
+        }
+    }
 
     return (
         <CardContainer cor={cor}>
@@ -28,8 +38,8 @@ export const Card = ({ titulo, cor, handleOpen, tarefas, setTarefas }: Props) =>
                 {titulo}
             </TitleCard>
             <TarefasCard>
-                {tarefas?.map((item, index) => (
-                    <ItemCard key={index}>
+                {tarefas?.map(item => (
+                    <ItemCard key={item.id}>
                         <div>
                             <span>
                                 {item.tarefa}
@@ -43,7 +53,7 @@ export const Card = ({ titulo, cor, handleOpen, tarefas, setTarefas }: Props) =>
                                 onClick={() => handleRemoveTarefa(item.id)}
                                 title="Apagar" />
                             <FaEdit
-                                onClick={() => alert('')}
+                                onClick={() => handleEditarTarefa(item.id)}
                                 title="Editar" />
                             <FaExchangeAlt
                                 onClick={() => alert('')}
