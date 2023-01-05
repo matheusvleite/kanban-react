@@ -43,7 +43,6 @@ export const ModalTarefa = ({
             setTarefas(atualizarTarefas);
             setTarefaEditadaId('');
             setTarefa("");
-            console.log(tarefas)
             handleClose();
             return;
         }

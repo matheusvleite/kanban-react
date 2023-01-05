@@ -32,6 +32,16 @@ export const Card = ({ titulo, cor, handleOpen, tarefas, setTarefas, setTarefa, 
         }
     }
 
+    const handleMudarStatus = (id: string) => {
+        const tarefaAMudar = tarefas.find(item => item.id === id)
+        if (tarefaAMudar) {
+            setTarefas((tarefa) => tarefa.filter(item => item.id !== id))
+            // setNoStatusQueFoiEscolhido!
+            return;
+        }
+
+    }
+
     return (
         <CardContainer cor={cor}>
             <TitleCard>
@@ -56,7 +66,7 @@ export const Card = ({ titulo, cor, handleOpen, tarefas, setTarefas, setTarefa, 
                                 onClick={() => handleEditarTarefa(item.id)}
                                 title="Editar" />
                             <FaExchangeAlt
-                                onClick={() => alert('')}
+                                onClick={() => handleMudarStatus(item.id)}
                                 title="Mudar tarefa" />
                         </Icones>
                     </ItemCard>
