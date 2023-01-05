@@ -1,22 +1,21 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { Tarefas } from "../../common/tarefas";
 import { ITarefas } from "../../interfaces/tarefas";
 import { Card } from "../Card";
 import { ModalTarefa } from "../ModalTarefa";
 
 export const AFazer = () => {
-    const getTarefa: ITarefas[] = JSON.parse(localStorage.getItem('tarefasAFazer')!) || []
-
+    const {setTarefasAFazer, tarefasAFazer} = useContext(Tarefas);
     const [open, setOpen] = useState(false);
     const [tarefa, setTarefa] = useState('');
-    const [tarefas, setTarefas] = useState<ITarefas[]>(getTarefa);
     const [tarefaEditadaId, setTarefaEditadaId] = useState('');
-
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
 
+
     useEffect(() => {
-        localStorage.setItem('tarefasAFazer', JSON.stringify(tarefas));
-    }, [tarefas])
+        localStorage.setItem('tarefasAFazer', JSON.stringify(tarefasAFazer));
+    }, [tarefasAFazer])
 
     return (
         <>
@@ -24,8 +23,8 @@ export const AFazer = () => {
                 titulo="Fazer"
                 cor="#E000FF"
                 handleOpen={handleOpen}
-                tarefas={tarefas}
-                setTarefas={setTarefas}
+                tarefas={tarefasAFazer}
+                setTarefas={setTarefasAFazer}
                 setTarefa={setTarefa}
                 setTarefaEditadaId={setTarefaEditadaId}
             />
@@ -34,8 +33,8 @@ export const AFazer = () => {
                 open={open}
                 setTarefa={setTarefa}
                 tarefa={tarefa}
-                setTarefas={setTarefas}
-                tarefas={tarefas}
+                setTarefas={setTarefasAFazer}
+                tarefas={tarefasAFazer}
                 corBotão="#E000FF"
                 tarefaEditadaId={tarefaEditadaId}
                 setTarefaEditadaId={setTarefaEditadaId}

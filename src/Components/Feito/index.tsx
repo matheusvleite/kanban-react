@@ -1,30 +1,31 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { Tarefas } from "../../common/tarefas";
 import { ITarefas } from "../../interfaces/tarefas";
 import { Card } from "../Card"
 import { ModalTarefa } from "../ModalTarefa";
 
 export const Feito = () => {
-    const getTarefa: ITarefas[] = JSON.parse(localStorage.getItem('tarefasFeito')!) || []
-
+    
+    const {setTarefasFeito, tarefasFeito} = useContext(Tarefas);
     const [open, setOpen] = useState(false);
     const [tarefa, setTarefa] = useState('');
-    const [tarefas, setTarefas] = useState<ITarefas[]>(getTarefa);
     const [tarefaEditadaId, setTarefaEditadaId] = useState('');
 
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
 
     useEffect(() => {
-        localStorage.setItem('tarefasFeito', JSON.stringify(tarefas));
-    }, [tarefas])
+        localStorage.setItem('tarefasFeito', JSON.stringify(tarefasFeito));
+    }, [tarefasFeito])
+
     return (
         <>
             <Card
                 titulo="Feito"
                 cor="#00FF97"
                 handleOpen={handleOpen}
-                tarefas={tarefas}
-                setTarefas={setTarefas}
+                tarefas={tarefasFeito}
+                setTarefas={setTarefasFeito}
                 setTarefa={setTarefa}
                 setTarefaEditadaId={setTarefaEditadaId}
             />
@@ -33,8 +34,8 @@ export const Feito = () => {
                 open={open}
                 setTarefa={setTarefa}
                 tarefa={tarefa}
-                setTarefas={setTarefas}
-                tarefas={tarefas}
+                setTarefas={setTarefasFeito}
+                tarefas={tarefasFeito}
                 corBotão="#00FF97"
                 tarefaEditadaId={tarefaEditadaId}
                 setTarefaEditadaId={setTarefaEditadaId}

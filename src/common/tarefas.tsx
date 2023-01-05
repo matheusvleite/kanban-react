@@ -1,4 +1,4 @@
-import { createContext, ReactNode, useState } from "react";
+import { createContext, ReactNode, useState, SetStateAction } from "react";
 import { ITarefas } from "../interfaces/tarefas";
 
 interface Props {
@@ -6,20 +6,26 @@ interface Props {
 }
 
 interface TarefaContext {
-    tarefasAFazer: ITarefas[]
-    tarefasFazendo: ITarefas[]
-    tarefasFeito: ITarefas[]
-    setTarefasAFazer: React.Dispatch<React.SetStateAction<ITarefas[]>>
-    setTarefasFazendo: React.Dispatch<React.SetStateAction<ITarefas[]>>
-    setTarefasFeito: React.Dispatch<React.SetStateAction<ITarefas[]>>
+    tarefasAFazer: ITarefas[],
+    tarefasFazendo: ITarefas[],
+    tarefasFeito: ITarefas[],
+    setTarefasAFazer: React.Dispatch<SetStateAction<ITarefas[]>>,
+    setTarefasFazendo: React.Dispatch<SetStateAction<ITarefas[]>>,
+    setTarefasFeito: React.Dispatch<SetStateAction<ITarefas[]>>,
 }
 
-export const Tarefas = createContext({} as TarefaContext);
+export const Tarefas = createContext<TarefaContext>({} as TarefaContext);
 
 export const TarefasProvider = ({ children }: Props) => {
-    const [tarefasAFazer, setTarefasAFazer] = useState<ITarefas[]>([]);
-    const [tarefasFazendo, setTarefasFazendo] = useState<ITarefas[]>([]);
-    const [tarefasFeito, setTarefasFeito] = useState<ITarefas[]>([]);
+    
+    const pegarTarefaDoStorage = (tarefa: string) => {
+        return JSON.parse(localStorage.getItem(tarefa)!) || []
+    }
+
+    const [tarefasAFazer, setTarefasAFazer] = useState<ITarefas[]>(pegarTarefaDoStorage('tarefasAFazer'));
+    const [tarefasFazendo, setTarefasFazendo] = useState<ITarefas[]>(pegarTarefaDoStorage('tarefasFazendo'));
+    const [tarefasFeito, setTarefasFeito] = useState<ITarefas[]>(pegarTarefaDoStorage('tarefasFeito'));
+
     return (
         <Tarefas.Provider
             value={{
@@ -30,6 +36,7 @@ export const TarefasProvider = ({ children }: Props) => {
                 tarefasFazendo,
                 tarefasFeito
             }}>
+
             {children}
         </Tarefas.Provider>
     )

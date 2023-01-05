@@ -1,3 +1,4 @@
+import { TarefasProvider } from "../../common/tarefas"
 import { AFazer } from "../../Components/AFazer"
 import { Fazendo } from "../../Components/Fazendo"
 import { Feito } from "../../Components/Feito"
@@ -8,6 +9,7 @@ function App() {
 
 
   return (
+    <TarefasProvider>
     <Container>
       <Header />
       <Tarefas>
@@ -16,6 +18,7 @@ function App() {
         <Feito />
       </Tarefas>
     </Container>
+    </TarefasProvider>
   )
 }
 
