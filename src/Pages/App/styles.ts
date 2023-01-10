@@ -10,4 +10,8 @@ export const Tarefas = styled.section`
     align-items: center;
     gap: 2rem;
     margin-top: 2rem;
+    flex-direction: column;
+    @media screen and (min-width: 1024px) {
+        flex-direction: initial;
+    }
 `

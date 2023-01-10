@@ -7,9 +7,13 @@ interface Props {
 export const CardContainer = styled.div<Props>`
     background-color: ${({ cor }) => cor};
     min-height: 60vh;
-    width: 25%;
-    padding: 1rem;
+    width: 100%;
+    padding: .4rem;
     box-shadow: 7px 1px 5px #aba8a8;
+    @media screen and (min-width: 1024px) {
+        padding: 1rem;
+        width: 25%;
+    }
 `
 
 export const TitleCard = styled.h2`
@@ -30,11 +34,14 @@ export const ItemCard = styled.li`
     min-height: 10vh;
     background-color: white;
     border-radius: 8px;
-    padding: 1rem;
+    padding: .4rem;
     margin-bottom: 1rem;
     display: flex;
     align-items: center;
     justify-content: space-between;
+    @media screen and (min-width: 1024px) {
+        padding: 1rem;
+    }
 `
 
 export const Icones = styled.div`
