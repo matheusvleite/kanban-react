@@ -2,6 +2,9 @@ import { ButtonAdd, CardContainer, ContentAdd, Icones, ItemCard, TarefasCard, Ti
 import { FaTrashAlt, FaEdit, FaExchangeAlt } from "react-icons/fa"
 import { CgAdd } from "react-icons/cg"
 import { ITarefas } from "../../interfaces/tarefas";
+import { ModalStatus } from "../ModalStatus";
+import { useContext, useState } from "react";
+import { Tarefas } from "../../common/tarefas";
 
 interface Props {
     titulo: string
@@ -14,6 +17,17 @@ interface Props {
 }
 
 export const Card = ({ titulo, cor, handleOpen, tarefas, setTarefas, setTarefa, setTarefaEditadaId }: Props) => {
+    const [open, setOpen] = useState(false);
+    const {
+        setTarefasAFazer,
+        setTarefasFazendo,
+        setTarefasFeito,
+        tarefasAFazer,
+        tarefasFazendo,
+        tarefasFeito
+    } = useContext(Tarefas);
+    const handleOpenModal = () => setOpen(true);
+    const handleClose = () => setOpen(false);
 
     const handleRemoveTarefa = (id: string) => {
         const remover = window.confirm('Deseja excluir tarefa?')
@@ -34,50 +48,55 @@ export const Card = ({ titulo, cor, handleOpen, tarefas, setTarefas, setTarefa, 
 
     const handleMudarStatus = (id: string) => {
         const tarefaAMudar = tarefas.find(item => item.id === id)
+
         if (tarefaAMudar) {
-            setTarefas((tarefa) => tarefa.filter(item => item.id !== id))
-            // setNoStatusQueFoiEscolhido!
-            return;
+                handleOpenModal()
         }
 
     }
-
+    
     return (
-        <CardContainer cor={cor}>
-            <TitleCard>
-                {titulo}
-            </TitleCard>
-            <TarefasCard>
-                {tarefas?.map(item => (
-                    <ItemCard key={item.id}>
-                        <div>
-                            <span>
-                                {item.tarefa}
-                            </span>
-                            <p>
-                                Adicionado em: {item.data}
-                            </p>
-                        </div>
-                        <Icones>
-                            <FaTrashAlt
-                                onClick={() => handleRemoveTarefa(item.id)}
-                                title="Apagar" />
-                            <FaEdit
-                                onClick={() => handleEditarTarefa(item.id)}
-                                title="Editar" />
-                            <FaExchangeAlt
-                                onClick={() => handleMudarStatus(item.id)}
-                                title="Mudar tarefa" />
-                        </Icones>
-                    </ItemCard>
-                ))}
-            </TarefasCard>
-            <ContentAdd>
-                <ButtonAdd onClick={handleOpen}>
-                    Adicionar a {titulo}
-                </ButtonAdd>
-                <CgAdd />
-            </ContentAdd>
-        </CardContainer>
+        <>
+            <CardContainer cor={cor}>
+                <TitleCard>
+                    {titulo}
+                </TitleCard>
+                <TarefasCard>
+                    {tarefas?.map(item => (
+                        <ItemCard key={item.id}>
+                            <div>
+                                <span>
+                                    {item.tarefa}
+                                </span>
+                                <p>
+                                    Adicionado em: {item.data}
+                                </p>
+                            </div>
+                            <Icones>
+                                <FaTrashAlt
+                                    onClick={() => handleRemoveTarefa(item.id)}
+                                    title="Apagar" />
+                                <FaEdit
+                                    onClick={() => handleEditarTarefa(item.id)}
+                                    title="Editar" />
+                                <FaExchangeAlt
+                                    onClick={() => handleMudarStatus(item.id)}
+                                    title="Mudar tarefa" />
+                            </Icones>
+                        </ItemCard>
+                    ))}
+                </TarefasCard>
+                <ContentAdd>
+                    <ButtonAdd onClick={handleOpen}>
+                        Adicionar a {titulo}
+                    </ButtonAdd>
+                    <CgAdd />
+                </ContentAdd>
+            </CardContainer>
+            <ModalStatus
+                open={open}
+                onClose={handleClose}
+            />
+        </>
     )
 }
