@@ -2,7 +2,7 @@ import Modal from "@mui/material/Modal";
 import { useId } from "react";
 import { ITarefas } from "../../interfaces/tarefas";
 import { ButtonCancelar } from "../ButtonCancelar";
-import { Button, ModalContent, ModalInput } from "./styles";
+import { Button, ModalContent, ModalForm, ModalInput } from "./styles";
 
 interface Props {
     handleClose: () => void
@@ -66,8 +66,7 @@ export const ModalTarefa = ({
             onClose={handleClose}
         >
             <ModalContent>
-                <form onSubmit={handleSubmit}>
-                    {tarefaEditadaId ? <h2>Editar tarefa</h2> : ''}
+                <ModalForm onSubmit={handleSubmit}>
                     <ModalInput
                         type="text"
                         maxLength={25}
@@ -80,7 +79,7 @@ export const ModalTarefa = ({
                     />
                     <Button corBotão={corBotão}>{tarefaEditadaId ? 'Editar' : 'Adicionar'}</Button>
                     {tarefaEditadaId ? <ButtonCancelar type="button" onClick={() => cancelarEditarTarefa()} /> : ''}
-                </form>
+                </ModalForm>
             </ModalContent>
         </Modal>
     )

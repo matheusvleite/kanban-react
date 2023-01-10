@@ -1,7 +1,10 @@
 import styled from "styled-components";
 
 export const Button = styled.button`
-    padding: .39rem 1rem;
+    padding: .39rem .3rem;
+    @media screen and (min-width: 1024px) {
+        padding: .39rem 1rem;
+    }
     outline: none;
     border: none;
     background-color: red;
