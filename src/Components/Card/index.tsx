@@ -3,8 +3,8 @@ import { FaTrashAlt, FaEdit, FaExchangeAlt } from "react-icons/fa"
 import { CgAdd } from "react-icons/cg"
 import { ITarefas } from "../../interfaces/tarefas";
 import { ModalStatus } from "../ModalStatus";
-import { useContext, useState } from "react";
-import { Tarefas } from "../../common/tarefas";
+import { useState } from "react";
+
 
 interface Props {
     titulo: string
@@ -18,14 +18,8 @@ interface Props {
 
 export const Card = ({ titulo, cor, handleOpen, tarefas, setTarefas, setTarefa, setTarefaEditadaId }: Props) => {
     const [open, setOpen] = useState(false);
-    const {
-        setTarefasAFazer,
-        setTarefasFazendo,
-        setTarefasFeito,
-        tarefasAFazer,
-        tarefasFazendo,
-        tarefasFeito
-    } = useContext(Tarefas);
+    const [tarefaMudar, setTarefaAMudar] = useState<ITarefas>();
+
     const handleOpenModal = () => setOpen(true);
     const handleClose = () => setOpen(false);
 
@@ -48,11 +42,8 @@ export const Card = ({ titulo, cor, handleOpen, tarefas, setTarefas, setTarefa, 
 
     const handleMudarStatus = (id: string) => {
         const tarefaAMudar = tarefas.find(item => item.id === id)
-
-        if (tarefaAMudar) {
-                handleOpenModal()
-        }
-
+        setTarefaAMudar(tarefaAMudar)
+        handleOpenModal()
     }
     
     return (
@@ -96,6 +87,9 @@ export const Card = ({ titulo, cor, handleOpen, tarefas, setTarefas, setTarefa, 
             <ModalStatus
                 open={open}
                 onClose={handleClose}
+                tarefaMudar={tarefaMudar}
+                tarefas={tarefas}
+                setTarefas={setTarefas}
             />
         </>
     )
