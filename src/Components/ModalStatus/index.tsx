@@ -22,26 +22,14 @@ export const ModalStatus = ({ open, onClose, tarefaMudar, tarefas, setTarefas }:
         tarefasFeito
     } = useContext(Tarefas);
 
-    const handleFazer= () => {
+    const handleTrocarStatus = (tarefa: ITarefas[], setTarefa: React.Dispatch<React.SetStateAction<ITarefas[]>>) => {
         if (tarefaMudar) {
+            const tarefaExistente = tarefa.find(item => item.id === tarefaMudar.id)
+            if(tarefaExistente) {
+                return alert('Ja está no card.')
+            }
             setTarefas((tarefa) => tarefa.filter(item => item.id !== tarefaMudar.id))
-            setTarefasAFazer([tarefaMudar, ...tarefasAFazer])
-            onClose();
-        }
-    }
-
-    const handleFazendo = () => {
-        if (tarefaMudar) {
-            setTarefas((tarefa) => tarefa.filter(item => item.id !== tarefaMudar.id))
-            setTarefasFazendo([tarefaMudar, ...tarefasFazendo])
-            onClose();
-        }
-    }
-    
-    const handleFeito = () => {
-        if (tarefaMudar) {
-            setTarefas((tarefa) => tarefa.filter(item => item.id !== tarefaMudar.id))
-            setTarefasFeito([tarefaMudar, ...tarefasFeito])
+            setTarefa([tarefaMudar, ...tarefa])
             onClose();
         }
     }
@@ -52,9 +40,9 @@ export const ModalStatus = ({ open, onClose, tarefaMudar, tarefas, setTarefas }:
             onClose={onClose}
         >
             <ModalContent>
-                <button onClick={handleFazer}>Fazer</button>
-                <button onClick={handleFazendo}>Fazendo</button>
-                <button onClick={handleFeito}>Feito</button>
+                <button onClick={() => handleTrocarStatus(tarefasAFazer, setTarefasAFazer)}>Fazer</button>
+                <button onClick={() => handleTrocarStatus(tarefasFazendo, setTarefasFazendo)}>Fazendo</button>
+                <button onClick={() => handleTrocarStatus(tarefasFeito, setTarefasFeito)}>Feito</button>
             </ModalContent>
         </Modal>
     )
