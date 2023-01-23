@@ -3,6 +3,8 @@ import { useContext } from "react"
 import { Tarefas } from "../../common/tarefas"
 import { ITarefas } from "../../interfaces/tarefas"
 import { ModalContent } from "../ModalTarefa/styles"
+import { Button, ContainerButtons } from "./styles"
+import { FaExchangeAlt } from "react-icons/fa"
 
 interface Props {
     open: boolean
@@ -22,11 +24,17 @@ export const ModalStatus = ({ open, onClose, tarefaMudar, tarefas, setTarefas }:
         tarefasFeito
     } = useContext(Tarefas);
 
+    const buttons = [
+        { id: 1, label: 'Fazer', icon: <FaExchangeAlt />, tarefa: tarefasAFazer, dispatch: setTarefasAFazer },
+        { id: 2, label: 'Fazendo', icon: <FaExchangeAlt />, tarefa: tarefasFazendo, dispatch: setTarefasFazendo },
+        { id: 3, label: 'Feito', icon: <FaExchangeAlt />, tarefa: tarefasFeito, dispatch: setTarefasFeito }
+    ]
+
     const handleTrocarStatus = (tarefa: ITarefas[], setTarefa: React.Dispatch<React.SetStateAction<ITarefas[]>>) => {
         if (tarefaMudar) {
             const tarefaExistente = tarefa.find(item => item.id === tarefaMudar.id)
-            if(tarefaExistente) {
-                return alert('Ja está no card.')
+            if (tarefaExistente) {
+                return alert('Essa tarefa ja está no card!')
             }
             setTarefas((tarefa) => tarefa.filter(item => item.id !== tarefaMudar.id))
             setTarefa([tarefaMudar, ...tarefa])
@@ -40,9 +48,17 @@ export const ModalStatus = ({ open, onClose, tarefaMudar, tarefas, setTarefas }:
             onClose={onClose}
         >
             <ModalContent>
-                <button onClick={() => handleTrocarStatus(tarefasAFazer, setTarefasAFazer)}>Fazer</button>
-                <button onClick={() => handleTrocarStatus(tarefasFazendo, setTarefasFazendo)}>Fazendo</button>
-                <button onClick={() => handleTrocarStatus(tarefasFeito, setTarefasFeito)}>Feito</button>
+                <ContainerButtons>
+                    {buttons.map(item => (
+                        <Button
+                            key={item.id}
+                            onClick={() => handleTrocarStatus(item.tarefa, item.dispatch)}
+                        >
+                            {item.label}
+                            {item.icon}
+                        </Button>
+                    ))}
+                </ContainerButtons>
             </ModalContent>
         </Modal>
     )
